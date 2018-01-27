@@ -1,0 +1,94 @@
+<header>
+    <nav class="o-navbar">
+        <li>
+            <div class="c-header-logo"></div>
+        </li>
+    </nav>
+</header>
+
+<main>
+    <div class="o-container-video">
+        <div class="o-home-video">
+            <video *ngIf="currentWindowWidth >= 992" poster='assets/video/homeart/homeart.jpg' autoplay loop playsinline class="c-home-video" id="bgvid">
+        <source src="assets/video/homeart/homeart.webm" type="video/webm" />{{ 'unsuported browser' | translate }}
+        <source src="assets/video/homeart/homeart.mp4" type="video/mp4" />{{ 'unsuported browser' | translate }}
+      </video>
+            <img *ngIf="currentWindowWidth < 992 && currentWindowWidth > 760" src="assets/video/homeart/homeart.jpg" class="c-home-image" alt="Homeart image">
+            <img *ngIf="currentWindowWidth <= 760 && currentWindowWidth > 360" src="assets/video/homeart/homeart760.jpg" class="c-home-image" alt="Homeart image">
+            <img *ngIf="currentWindowWidth <= 360" src="assets/video/homeart/homeart360.jpg" class="c-home-image" alt="Homeart image">
+            <div class="c-video-filter"></div>
+        </div>
+        <div class="o-video-description">
+            <h1 class="c-video-description">
+                <span class="c-video-brand">Inarts</span> {{ 'tag line' | translate }}
+            </h1>
+            <div class="o-video-buttons">
+                <button class="c-video-button">
+                    {{ 'login' | translate }}
+                </button>
+                <button class="c-video-button">
+                    {{ 'register' | translate }}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="o-container-who">
+        <div class="c-who-plus">+</div>
+        <div class="c-who-description">
+            <div class="o-description-block">
+                <h2 class="c-who-title">
+                    {{ 'about us' | translate }}
+                </h2>
+                <p class="c-who-text">
+                    Millions of people and businesses around the world use MailChimp, which has been around since 2001. The company started as a side project funded by various web-development jobs. Now we’re the world’s leading marketing automation platform, and we send
+                    more than a billion emails a day. We democratize technology for small businesses, creating innovative products that empower our customers to grow.
+                </p>
+            </div>
+            <div class="o-description-block">
+                <h2 class="c-who-title">
+                    {{ 'with who' | translate }}
+                </h2>
+                <p class="c-who-text">
+                    We help our team members grow in their current roles and dream about what's next. MailChimp employees are encouraged to attend events, share what they do, and take time off to volunteer or learn new skills. MailChimp University, an MBA-style program taught
+                    by Emory University professors, is offered as an option to all employees. <br> We also have an apprenticeship program, which gives people without prior experience the opportunity to try out technical roles.
+                </p>
+                <div class="o-brand-container">
+                    <div class="o-brand-item">
+                        <a href="https://celebrand.com" target="_black">
+                            <img class="c-brand-image" src="assets/img/home/associateds/celebrand.jpg" alt="celebrand.com">
+                            <!-- <h3>Celebrand</h3> -->
+                        </a>
+                    </div>
+                    <div class="o-brand-item">
+                        <a href="https://weecomments.com" target="_black">
+                            <img class="c-brand-image" src="assets/img/home/associateds/weecomments.png" alt="weecomments.com">
+                            <!-- <h3>Weecomments</h3> -->
+                        </a>
+                    </div>
+                    <div class="o-brand-item">
+                        <a href="https://istreart.com" target="_black">
+                            <img class="c-brand-image" src="assets/img/home/associateds/istreart.jpg" alt="istreart.com">
+                            <!-- <h3>Istreart</h3> -->
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</main>
+<footer>
+    <div class="c-copyright-container">
+        <p>
+            <span class="c-copyright-text"> copyright<span class="c-copyright">©</span>2018</span>
+        </p>
+
+        <div class="o-social">
+            <a href="https://www.facebook.com"> <img src="assets/img/social/facebook.png" alt="Facebook"> </a>
+            <a href="https://www.twitter.com"> <img src="assets/img/social/twitter.png" alt="Twitter"> </a>
+            <a href="https://www.pinterest.com"> <img src="assets/img/social/pinterest.png" alt="Pinterest"> </a>
+        </div>
+    </div>
+</footer>
