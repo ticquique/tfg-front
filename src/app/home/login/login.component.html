@@ -1,0 +1,56 @@
+<div class="o-form-grid" [@onLoad]="state" (click)="cancel($event)">
+  <div (click)="$event.stopPropagation()" class="o-form-container">
+    <form #loginForm="ngForm" (submit)='submit($event)'>
+      <!-- <div class="form-group">
+              <select>
+                    <option>Value 1</option>
+                    <option>Value 2</option>
+                  </select>
+              <label class="control-label" for="select">Selectbox</label><i class="bar"></i>
+          </div> -->
+      <div class="form-group">
+        <input type="text" [(ngModel)]="logModel.username" name="username" #username="ngModel" required="required" />
+        <label class="control-label" for="input">Username</label>
+        <i class="bar"></i>
+      </div>
+      <div class="form-group">
+        <input [type]="passwordHide ? 'password' : 'text'" [(ngModel)]="logModel.password" name="password" #password="ngModel" required="required" />
+        <label class="control-label" for="input">Password</label>
+        <span class="suffix" (click)="passwordHide = !passwordHide"><i class="material-icons">{{passwordHide ? 'visibility' : 'visibility_off'}}</i></span>
+        <i class="bar"></i>
+      </div>
+
+      <!-- <div class="form-radio">
+              <div class="radio">
+                  <label>
+                      <input type="radio" name="radio" checked="checked"/><i class="helper"></i>I'm the label from a radio button
+                    </label>
+              </div>
+              <div class="radio">
+                  <label>
+                      <input type="radio" name="radio"/><i class="helper"></i>I'm the label from a radio button
+                    </label>
+              </div>
+          </div> -->
+      <div [@onError]="errorState" class="form-group error">
+        <p class="alert">
+          {{ errors }}
+        </p>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"  [(ngModel)]="logModel.remember" name="remember" #remember="ngModel" />
+          <i class="helper"></i>Remember me?
+        </label>
+      </div>
+      <div class="button-container">
+        <button class="button" type="button" (click)="cancel($event)">
+          <span>Cancel</span>
+        </button>
+        <button class="button" [disabled]="!loginForm.form.valid" type="submit">
+          <span>Register</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

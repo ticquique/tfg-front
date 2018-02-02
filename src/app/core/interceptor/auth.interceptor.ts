@@ -11,7 +11,7 @@ export class AuthInterceptor implements HttpInterceptor {
   public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // add authorization header with jwt token if available
     // tslint:disable-next-line:max-line-length
-    const currentUser = localStorage.getItem('id_token');
+    const currentUser = localStorage.getItem('id_token') || sessionStorage.getItem('id_token');
 
     if (currentUser) {
       try {

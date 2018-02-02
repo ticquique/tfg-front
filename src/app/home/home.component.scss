@@ -4,22 +4,21 @@
 .o-navbar {
     background-color: $navbarGrey;
     border-radius: 0px;
-    box-shadow: rem(0px 2px 6px 0 rgb(83, 80, 80));
+    box-shadow: $shadow-inset-down;
     display: flex;
 }
 
 .c-header-logo {
     background-color: $pupleDark;
     border-radius: 50%;
-    height: rem(34px);
-    width: rem(34px); //71px - 34px /2
-    margin: rem(13.5px);
+    height: rem(36px);
+    width: rem(36px);
+    margin: rem(11px);
 }
 
 //VIDEO CONTAINER
 .o-container-video {
     position: relative;
-    margin-top: rem(2px);
     min-height: 70vh;
     display: flex;
     align-items: center;
@@ -53,7 +52,7 @@
     height: 100%;
     width: 100%;
     background-color: rgba(110, 132, 132, .63);
-    box-shadow: 0px -3px 11px 0px black inset;
+    box-shadow: $shadow-inset-down;
 }
 
 .o-video-description {
@@ -68,12 +67,12 @@
 
 .c-video-description {
     font-size: rem(40px);
-    color: #fff;
+    color: $bodyBackground;
 }
 
 .c-video-brand {
     font-size: rem(50px);
-    color: $pupleDark;
+    color: lighten($pupleDark, 10);
 }
 
 .o-video-buttons {
@@ -90,44 +89,44 @@
 }
 
 .c-video-button {
-    background-color: rgba(189, 121, 252, 0.83);
-    font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
-    font-size: rem(16px);
-    font-weight: 700;
-    cursor: pointer;
-    margin: rem(10px 0);
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: rgba(lighten($pupleDark, 30), .73);
+    font-size: $mf-font-size;
+    font-weight: 700;
+    cursor: pointer;
+    margin: rem(10px 0);
     max-width: rem(260px);
     width: 100%;
-    height: rem(54px);
+    min-height: rem(54px);
     text-transform: uppercase;
     border-radius: rem(3px);
     border: rem(2px) solid hsla(0, 0%, 80%, .35);
-    color: #fff;
+    color: $bodyBackground;
     text-decoration: none;
-    position: relative;
-    transition: background .4s;
+    transition: background-color $mf-transition-speed ease, box-shadow $mf-transition-speed ease;
     &:hover {
-        background: rgba(189, 121, 252, 0.90)
+        background-color: rgba(lighten($pupleDark, 30), .93);
+        box-shadow: $shadow-6;
     }
 }
 
 .o-container-who {
     max-width: rem(1200px);
-    margin: rem(30px auto 70px auto);
+    margin: rem(60px auto 70px auto);
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .c-who-plus {
-    background-color: #C985F9;
+    background-color: lighten($pupleDark, 30);
     border-radius: 50%;
     font-weight: 600;
     text-align: center;
-    color: #fff;
+    color: $bodyBackground;
     z-index: 2;
     font-size: rem(50px);
     height: rem(60px);
@@ -141,7 +140,7 @@
     width: 100%;
     margin-top: -30px;
     padding: rem(50px 10px 10px 10px);
-    box-shadow: rem(0px 1.5px 4px 0 rgba(83, 80, 80, .4));
+    border: 0.2px solid rgba(0, 0, 0, .07);
 }
 
 .o-description-block:not(:first-child) {
@@ -152,14 +151,14 @@
     position: relative;
     padding: 15px;
     margin: 0;
-    color: #8F3FA9;
+    color: lighten($pupleDark, 15);
     font-size: rem(32px);
     text-align: center;
     background: rgba(0, 0, 0, .07);
 }
 
 .o-brand-container {
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.22);
+    box-shadow: $shadow-2;
     display: flex;
     flex-flow: column;
     justify-content: space-around;

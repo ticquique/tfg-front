@@ -32,6 +32,8 @@ export class HomeComponent implements OnInit {
    */
   public currentWindowWidth: number;
 
+  public loginOpen = false;
+
   public ngOnInit() {
     console.log('hello `Home` component');
     this.currentWindowWidth = window.innerWidth;
@@ -43,6 +45,10 @@ export class HomeComponent implements OnInit {
   @HostListener('window:resize')
   public onResize() {
     this.currentWindowWidth = window.innerWidth;
+  }
+
+  public openLogin() {
+    this.loginOpen = !this.loginOpen;
   }
 
 }

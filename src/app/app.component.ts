@@ -1,7 +1,7 @@
 /**
  * Angular 2 decorators and services
  */
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, HostListener } from '@angular/core';
 
 /**
  * App Component
@@ -19,7 +19,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class AppComponent {
 
-  constructor() {console.log(''); }
+  constructor() { console.log(''); }
 
 }
 
