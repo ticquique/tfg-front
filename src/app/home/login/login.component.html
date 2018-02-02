@@ -32,7 +32,7 @@
                     </label>
               </div>
           </div> -->
-      <div [@onError]="errorState" class="form-group error">
+      <div [@onError]="errorState" class="form-group small error">
         <p class="alert">
           {{ errors }}
         </p>
@@ -48,8 +48,10 @@
           <span>Cancel</span>
         </button>
         <button class="button" [disabled]="!loginForm.form.valid" type="submit">
-          <span>Register</span>
+          <span>Login</span>
         </button>
+
+        <a class="subtext" (click) = "lostPasswd($event)" href="javascript:void(0)"> Password lost? </a>
       </div>
     </form>
   </div>

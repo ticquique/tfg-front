@@ -39,6 +39,23 @@ export class AuthService {
 
   }
 
+  public recoverPass(email, username, next) {
+    if (email.length > 0) {
+      // tslint:disable-next-line:max-line-length
+      this.httpClient.post(API_URL + '/api/auth/recover', {email}, { headers: this.headersHttp }).subscribe(
+        (data) => { next(null, data); },
+        (err) => { console.log(err); next(err); }
+      );
+    } else {
+      // tslint:disable-next-line:max-line-length
+      this.httpClient.post(API_URL + '/api/auth/recover', {username} , { headers: this.headersHttp }).subscribe(
+        (data) => { next(null, data); },
+        (err) => { console.log(err); next(err); }
+      );
+    }
+
+  }
+
   public storeUserData(token, remember, user?) {
     if (remember) {
       localStorage.setItem('id_token', token);

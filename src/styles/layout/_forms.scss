@@ -1,4 +1,7 @@
 form {
+    .subtext {
+        display: block;
+    }
     .form-radio,
     .form-group {
         position: relative;
@@ -25,6 +28,10 @@ form {
           top: 0;
           color: #b3b3b3;
         }
+        &.small-group {
+          margin-top: 0;
+          margin-bottom: 0;
+        }
         textarea {
             resize: none;
         }
@@ -38,12 +45,19 @@ form {
             line-height: 1.6;
             box-shadow: none;
         }
-        &.error {
+        &.error, &.success {
           margin-bottom: $mf-font-size;
           overflow: hidden;
           p{margin: 0}
+        }
+        &.error {
           .alert {
             color: rgb(126, 0, 0);
+          }
+        }
+        &.success {
+          .alert {
+            color: rgb(0, 126, 78);
           }
         }
         .control-label {

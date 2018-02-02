@@ -6,17 +6,15 @@ import {
   EventEmitter
 } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AuthService } from 'app/shared/services';
-import { User } from 'app/interfaces';
 import { ValidForm } from 'app/interfaces';
-import { loginValidation } from 'app/shared/validators';
+import { lostValidation } from 'app/shared/validators';
 
 @Component({
-  selector: 'login-form',  // <login-form></login-form>
+  selector: 'lost-form',  // <lost-form></lost-form>
   providers: [],
-  styleUrls: ['./login.component.scss'],
-  templateUrl: './login.component.html',
+  styleUrls: ['./lost.component.scss'],
+  templateUrl: './lost.component.html',
   animations: [
     trigger('onLoad', [
       state('invisible', style({
@@ -37,45 +35,53 @@ import { loginValidation } from 'app/shared/validators';
         opacity: '1'
       })),
       transition('invisible <=> visible', animate('600ms ease-in')),
+    ]),
+    trigger('onSuccess', [
+      state('invisible', style({
+        height: '0rem',
+        opacity: '0'
+      })),
+      state('visible', style({
+        height: '27px',
+        opacity: '1'
+      })),
+      transition('invisible <=> visible', animate('600ms ease-in')),
     ])
   ]
 })
 
-export class LoginComponent implements OnInit {
+export class LostComponent implements OnInit {
 
   // Variables
   @Output() public cancelled = new EventEmitter();
   @Output() public submitted = new EventEmitter();
-  @Output() public lostPassword = new EventEmitter();
+  @Output() public login = new EventEmitter();
 
   public state: string = 'invisible';
   public errorState: string = 'invisible';
+  public successState: string = 'invisible';
   public errors: string = '';
-  public passwordHide: boolean = true;
   private logModel = {
-    username: '',
-    password: '',
-    remember: false
+    email: '',
+    username: ''
   };
 
   // Methods
   constructor(
-    private authService: AuthService,
-    public activatedRoute: ActivatedRoute,
-    public router: Router
+    private authService: AuthService
   ) { }
 
   public ngOnInit() {
-    console.log('hello `Login` component');
+    console.log('hello `recoverPass` component');
     setTimeout(() => {
       this.state = 'visible';
     }, 60);
   }
 
-  public lostPasswd() {
+  public logg() {
     this.state = 'invisible';
     setTimeout(() => {
-      this.lostPassword.emit(null);
+      this.login.emit(null);
     }, 300);
   }
 
@@ -90,35 +96,31 @@ export class LoginComponent implements OnInit {
   public submit(event) {
 
     // Variables
-    const user: User = {
-      username: this.logModel.username,
-      password: this.logModel.password
-    };
+    const email: string = this.logModel.email;
+    const username: string = this.logModel.username;
 
-    const isValid: ValidForm = loginValidation(user);
+    const isValid: ValidForm = lostValidation(email, username);
 
     // Methods
     if (isValid.success) {
-      this.authService.authenticateUser(user, (err, data) => {
+      this.authService.recoverPass(email, username, (err, data) => {
         if (err) {
           this.errors = err.error.message;
           this.errorState = 'visible';
           setTimeout(() => { this.errorState = 'invisible'; }, 1500);
           return false;
         } else {
-          this.state = 'invisible';
-          this.authService.storeUserData(data.token, this.logModel.remember);
+          this.successState = 'visible';
           setTimeout(() => {
-            this.activatedRoute.queryParams.subscribe((params: Params) => {
-              if (params.returnUrl) {
-                this.router.navigate([params.returnUrl]);
-              } else {
-                this.router.navigate(['/']);
-              }
-            });
-            this.submitted.emit(null);
-          }, 300);
-          return true;
+            this.successState = 'invisible';
+            setTimeout(() => {
+              this.state = 'invisible';
+              setTimeout(() => {
+                this.submitted.emit(null);
+              }, 300);
+              return true;
+            }, 600);
+          }, 1500);
         }
       });
     } else {

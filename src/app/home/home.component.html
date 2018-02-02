@@ -78,7 +78,9 @@
         </div>
     </div>
     <div class="clearfix"></div>
-    <login-form *ngIf="loginOpen" (cancelled) = "openLogin()" (submitted) = "openLogin()"></login-form>
+    <lost-form *ngIf="lostOpen" (login) = "openLogin()" (cancelled) = "openLost()" (submitted) = "openLost()"></lost-form>
+    <div class="clearfix"></div>
+    <login-form *ngIf="loginOpen" (lostPassword) = "openLost()" (cancelled) = "openLogin()" (submitted) = "openLogin()"></login-form>
 </main>
 <footer>
     <div class="c-copyright-container">

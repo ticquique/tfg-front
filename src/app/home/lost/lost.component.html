@@ -1,0 +1,41 @@
+<div class="o-form-grid" [@onLoad]="state" (click)="cancel($event)">
+  <div (click)="$event.stopPropagation()" class="o-form-container">
+    <form #loginForm="ngForm" (submit)='submit($event)'>
+
+      <div class="form-group small">
+        <p>Fill only one field</p>
+      </div>
+      <div class="form-group">
+        <input type="text" [(ngModel)]="logModel.username" name="username" #username="ngModel" />
+        <label class="control-label" for="input">Username</label>
+        <i class="bar"></i>
+      </div>
+      <div class="form-group">
+        <input type="email" [(ngModel)]="logModel.email" name="email" #email="ngModel" />
+        <label class="control-label" for="input">Email</label>
+        <i class="bar"></i>
+      </div>
+
+      <div [@onError]="errorState" class="form-group small-group error">
+        <p class="alert">
+          {{ errors }}
+        </p>
+      </div>
+      <div [@onSuccess]="successState" class="form-group small-group success">
+        <p class="alert">
+          Go to your email to reset your password
+        </p>
+      </div>
+      <div class="button-container">
+        <button class="button" type="button" (click)="cancel($event)">
+          <span>Cancel</span>
+        </button>
+        <button class="button" [disabled]="!loginForm.form.valid" type="submit">
+          <span>Recover</span>
+        </button>
+
+        <a class="subtext" (click) = "logg($event)" href="javascript:void(0)"> Go to login </a>
+      </div>
+    </form>
+  </div>
+</div>

@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit {
   public currentWindowWidth: number;
 
   public loginOpen = false;
+  public lostOpen = false;
 
   public ngOnInit() {
     console.log('hello `Home` component');
@@ -48,7 +49,13 @@ export class HomeComponent implements OnInit {
   }
 
   public openLogin() {
+    this.lostOpen = false;
     this.loginOpen = !this.loginOpen;
+  }
+
+  public openLost() {
+    this.loginOpen = false;
+    this.lostOpen = !this.lostOpen;
   }
 
 }
