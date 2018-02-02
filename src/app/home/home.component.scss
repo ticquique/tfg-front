@@ -1,10 +1,6 @@
 /*styles for home content only*/
 
 @import '../../styles/variables';
-* {
-    box-sizing: border-box;
-}
-
 .o-navbar {
     background-color: $navbarGrey;
     border-radius: 0px;
@@ -232,6 +228,7 @@ footer {
 .o-social {
     img {
         display: inline-block;
+        margin-top: rem(12px);
         max-width: rem(40px);
     }
 }

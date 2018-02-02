@@ -1,6 +1,44 @@
-
 @import 'mixins';
-
-$bodyBackground: rgba(245, 245, 245, 1);
-$navbarGrey: rgb(215, 215, 215);
-$pupleDark: rgb(142, 68, 172);
+// Colors
+$mf-input-color: #333 !default;
+$mf-border-color: #999 !default;
+$navbarGrey: rgb(235, 235, 235);
+$mf-label-color: lighten($mf-border-color, 10%) !default;
+$mf-active-color: darken($mf-border-color, 10%) !default;
+$mf-focus-color: #5f33b7 !default;
+$mf-error-color: #d9534f !default;
+$formbg: #000 !default;
+$bodyBackground: #fff !default;
+$pupleDark: #5f33b7 !default;
+//Shadows
+$shadow-inset: inset 0 2px 2px 0 rgba(0, 0, 0, .14);
+$shadow-inset-down: inset 0 -2px 2px 0 rgba(0, 0, 0, .14);
+$shadow-0: 0 0 1px rgba(0, 0, 0, 0);
+$shadow-2: 0 2px 2px 0 rgba(0, 0, 0, .14),
+0 3px 1px -2px rgba(0, 0, 0, .2),
+0 1px 5px 0 rgba(0, 0, 0, .12);
+$shadow-3: 0 3px 4px 0 rgba(0, 0, 0, .14),
+0 3px 3px -2px rgba(0, 0, 0, .2),
+0 1px 8px 0 rgba(0, 0, 0, .12);
+$shadow-4: 0 4px 5px 0 rgba(0, 0, 0, .14),
+0 1px 10px 0 rgba(0, 0, 0, .12),
+0 2px 4px -1px rgba(0, 0, 0, .2);
+$shadow-6: 0 6px 10px 0 rgba(0, 0, 0, .14),
+0 1px 18px 0 rgba(0, 0, 0, .12),
+0 3px 5px -1px rgba(0, 0, 0, .2);
+$shadow-8: 0 8px 10px 1px rgba(0, 0, 0, .14),
+0 3px 14px 2px rgba(0, 0, 0, .12),
+0 5px 5px -3px rgba(0, 0, 0, .2);
+// Font Sizes
+$mf-font-size: 1rem !default;
+$mf-active-font-size: $mf-font-size * 0.8 !default;
+$mf-active-top: -$mf-font-size !default;
+// Margin & Paddings
+$mf-gap: $mf-font-size * 1.5 !default;
+$mf-spacer: $mf-font-size / 8 !default;
+$mf-fieldset-margin: 0 0 $mf-gap * 2 !default;
+$mf-checkbox-gap: $mf-font-size * 2 !default;
+$mf-checkbox-top: 0 !default;
+$mf-radio-margin: $mf-font-size / -4 !default;
+// Animation
+$mf-transition-speed: 0.28s !default;

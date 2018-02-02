@@ -5,11 +5,17 @@
 
 @import 'variables';
 @import 'normalize';
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
 html,
 body {
     height: 100%;
     font-family: 'Open Sans', 'Helvetica Neue', Arial;
-    background: $bodyBackground;
+    background: darken($bodyBackground, 4.08);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 }
@@ -32,4 +38,10 @@ img {
 p {
     font-size: rem(16px);
     line-height: 1.6875;
+}
+
+button {
+    &:focus {
+        outline: none;
+    }
 }
