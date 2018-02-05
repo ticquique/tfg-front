@@ -1,0 +1,46 @@
+<div class="o-form-grid" [@onLoad]="state" (click)="cancel($event)">
+  <div (click)="$event.stopPropagation()" class="o-form-container">
+    <form #loginForm="ngForm" (submit)='submit($event)'>
+      <div class="form-group">
+        <input type="text" [(ngModel)]="logModel.username" name="username" #username="ngModel" required/>
+        <label class="control-label" for="input">Username</label>
+        <i class="bar"></i>
+      </div>
+      <div class="form-group">
+        <input type="email" [(ngModel)]="logModel.email" name="email" #email="ngModel" required />
+        <label class="control-label" for="input">Email</label>
+        <i class="bar"></i>
+      </div>
+      <!-- *ngFor="let role of roles" -->
+      <div class="form-radio">
+        <div *ngFor="let role of roles; let first = first;" class="radio">
+          <label>
+            <input type="radio" name="role" [(ngModel)]="logModel.role" value= "{{role._id}}" />
+            <i class="helper"></i> {{role.name}}
+          </label>
+        </div>
+      </div>
+
+
+      <div [@onError]="errorState" class="form-group small-group error">
+        <p class="alert">
+          {{ errors }}
+        </p>
+      </div>
+      <div [@onSuccess]="successState" class="form-group small-group success">
+        <p class="alert">
+          Correctly registered, open your mail to confirm your account and set the password.
+        </p>
+      </div>
+      <div class="button-container">
+        <button class="button" type="button" (click)="cancel($event)">
+          <span>Cancel</span>
+        </button>
+        <button class="button" [disabled]="!loginForm.form.valid" type="submit">
+          <span>Register</span>
+        </button>
+
+      </div>
+    </form>
+  </div>
+</div>

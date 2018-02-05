@@ -18,7 +18,7 @@ import { CoreModule } from './core';
 import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
-import { HomeComponent, LoginComponent, LostComponent } from './home';
+import { HomeComponent, RegisterComponent, LoginComponent, LostComponent } from './home';
 import { AboutComponent } from './about';
 import { NoContentComponent } from './no-content';
 import { DevModuleModule } from './+dev-module';
@@ -51,6 +51,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     LoginComponent,
     LostComponent,
+    RegisterComponent,
     NoContentComponent
   ],
   /**

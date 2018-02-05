@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit {
 
   public loginOpen = false;
   public lostOpen = false;
+  public registerOpen = false;
 
   public ngOnInit() {
     console.log('hello `Home` component');
@@ -50,12 +51,20 @@ export class HomeComponent implements OnInit {
 
   public openLogin() {
     this.lostOpen = false;
+    this.registerOpen = false;
     this.loginOpen = !this.loginOpen;
   }
 
   public openLost() {
     this.loginOpen = false;
+    this.registerOpen = false;
     this.lostOpen = !this.lostOpen;
+  }
+
+  public openRegister() {
+    this.loginOpen = false;
+    this.lostOpen = false;
+    this.registerOpen = !this.registerOpen;
   }
 
 }

@@ -1,11 +1,13 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'app/shared/services';
+import { PublicService } from 'app/shared/services';
 import { AuthGuard } from 'app/shared/guards';
 
 const APP_PROVIDERS = [
   AuthGuard,
-  AuthService
+  AuthService,
+  PublicService
 ];
 
 console.log('`Shared` bundle loaded asynchronously');

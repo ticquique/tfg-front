@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelper } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import { error } from 'selenium-webdriver';
 
 @Injectable()
 export class AuthService {
@@ -18,13 +17,12 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public registerUser(user) {
+  public registerUser(user, next) {
 
     // tslint:disable-next-line:max-line-length
     this.httpClient.post(API_URL + '/api/auth/register', user, { headers: this.headersHttp }).subscribe(
-      (data) => { console.log('bbbb'); },
-      (err) => { console.log('aaaaa'); },
-      () => { console.log('done'); }
+      (data) => { next(null, data); },
+      (err) => { next(err); }
     );
 
   }

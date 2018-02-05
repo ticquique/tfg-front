@@ -26,7 +26,7 @@
                 <button class="c-video-button" (click)="openLogin()">
                     {{ 'login' | translate }}
                 </button>
-                <button class="c-video-button" (click)="openLogin()">
+                <button class="c-video-button" (click)="openRegister()">
                     {{ 'register' | translate }}
                 </button>
             </div>
@@ -79,8 +79,8 @@
     </div>
     <div class="clearfix"></div>
     <lost-form *ngIf="lostOpen" (login) = "openLogin()" (cancelled) = "openLost()" (submitted) = "openLost()"></lost-form>
-    <div class="clearfix"></div>
     <login-form *ngIf="loginOpen" (lostPassword) = "openLost()" (cancelled) = "openLogin()" (submitted) = "openLogin()"></login-form>
+    <register-form *ngIf="registerOpen" (cancelled) = "openRegister()" (submitted) = "openRegister()"></register-form>
 </main>
 <footer>
     <div class="c-copyright-container">
