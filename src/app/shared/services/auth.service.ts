@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelper } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { User } from 'app/interfaces';
 
 @Injectable()
 export class AuthService {
@@ -40,16 +41,50 @@ export class AuthService {
   public recoverPass(email, username, next) {
     if (email.length > 0) {
       // tslint:disable-next-line:max-line-length
-      this.httpClient.post(API_URL + '/api/auth/recover', {email}, { headers: this.headersHttp }).subscribe(
+      this.httpClient.post(API_URL + '/api/auth/recover', { email }, { headers: this.headersHttp }).subscribe(
         (data) => { next(null, data); },
         (err) => { console.log(err); next(err); }
       );
     } else {
       // tslint:disable-next-line:max-line-length
-      this.httpClient.post(API_URL + '/api/auth/recover', {username} , { headers: this.headersHttp }).subscribe(
+      this.httpClient.post(API_URL + '/api/auth/recover', { username }, { headers: this.headersHttp }).subscribe(
         (data) => { next(null, data); },
         (err) => { console.log(err); next(err); }
       );
+    }
+
+  }
+
+  public confirmMail(token: string, next) {
+    // tslint:disable-next-line:max-line-length
+    this.httpClient.get(API_URL + '/api/auth/' + token, { headers: this.headersHttp }).subscribe(
+      (data) => { next(null, data); },
+      (err) => { next(err); }
+    );
+  }
+
+  public confirmPasswordChange(token: string, next) {
+    // tslint:disable-next-line:max-line-length
+    this.httpClient.get(API_URL + '/api/auth/recover/' + token, { headers: this.headersHttp }).subscribe(
+      (data) => { next(null, data); },
+      (err) => { next(err); }
+    );
+  }
+
+  public firstProfileUpdate(user: User, next) {
+    // tslint:disable-next-line:max-line-length
+    if (this.loadToken()) {
+      const decodedToken = this.jwtHelper.decodeToken(this.authToken);
+      this.httpClient.put(
+        API_URL + '/api/user/' + decodedToken.id,
+        user,
+        { headers: this.headersHttp }
+      ).subscribe(
+        (data) => { next(null, data); },
+        (err) => { next(err); }
+        );
+    } else {
+      next({error: {message: 'Invalid token'}});
     }
 
   }
@@ -69,7 +104,12 @@ export class AuthService {
 
   public loadToken() {
     const token = localStorage.getItem('id_token') || sessionStorage.getItem('id_token');
-    this.authToken = token;
+    if (token) {
+      this.authToken = token;
+      return token;
+    } else {
+      return '';
+    }
   }
 
   public loggedIn() {

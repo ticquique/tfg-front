@@ -19,7 +19,7 @@ import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 import { HomeComponent, RegisterComponent, LoginComponent, LostComponent } from './home';
-import { AboutComponent } from './about';
+import { PasswordChangeComponent } from './semiprivate';
 import { NoContentComponent } from './no-content';
 import { DevModuleModule } from './+dev-module';
 
@@ -47,7 +47,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   bootstrap: [AppComponent],
   declarations: [
     AppComponent,
-    AboutComponent,
+    PasswordChangeComponent,
     HomeComponent,
     LoginComponent,
     LostComponent,

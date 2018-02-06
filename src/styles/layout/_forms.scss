@@ -28,10 +28,6 @@ form {
           top: 0;
           color: #b3b3b3;
         }
-        &.small-group {
-          margin-top: 0;
-          margin-bottom: 0;
-        }
         textarea {
             resize: none;
         }
@@ -59,6 +55,10 @@ form {
           .alert {
             color: rgb(0, 126, 78);
           }
+        }
+        &.small-group {
+          margin-top: 0;
+          margin-bottom: 0;
         }
         .control-label {
             position: absolute;
