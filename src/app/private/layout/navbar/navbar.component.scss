@@ -1,0 +1,130 @@
+@import '../../../../styles/variables';
+
+.container {
+  max-width: 1200px;
+}
+
+.o-navbar-nav {
+  display: flex;
+  justify-content: center;
+  background-color: rgb(215, 215, 215);
+  padding: 10px;
+}
+
+.o-navbar-container{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.o-logo-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  display: block;
+  border-radius: 50%;
+  background: $pupleDark;
+  height: rem(36px);
+  width: rem(36px);
+}
+
+.o-menu {
+  display: flex;
+  justify-content: space-between;
+  max-width: 300px;
+  width: calc(100% - 82px);
+  align-items: center;
+
+}
+
+.navbar-icon {
+  padding: 2px;
+  font-size: rem(32px);
+  color: $pupleDark;
+  transition: color $mf-transition-speed ease-in;
+}
+
+.o-profile-container,
+.c-notifications,
+.c-messages,
+.c-languajes,
+.c-settings{
+  position: relative;
+  cursor: pointer;
+  .navbar-subicon {
+    position: absolute;
+    border-radius: 3px;
+    color: white;
+    background-color: #F92B17;
+    padding: rem(2px);
+    right: 0;
+    top: 0;
+  }
+  &:hover{
+    .navbar-icon{
+      color: rgb(179, 159, 220);
+    }
+  }
+}
+
+.o-profile-container,
+.c-notifications,
+.c-languajes,
+.c-messages{
+  margin-right: 10px;
+}
+
+
+.o-profile-container {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: rem(2px 8px);
+  border-radius: 5px;
+  transition: box-shadow $mf-transition-speed ease-in;
+  &:hover{
+    box-shadow: $shadow-2;
+  }
+}
+
+.c-profileImage{
+  display: block;
+  font-size: rem(32px);
+}
+.c-profileName{
+  display: block;
+  font-weight: 700;
+  font-size: rem(14px);
+}
+
+.o-submenu{
+  position: absolute;
+  top: 110%;
+  right: 0;
+  padding: 2px;
+  background-color: rgba(255, 255, 255, 1);
+  transition: box-shadow $mf-transition-speed ease-in, opacity $mf-transition-speed linear, visibility $mf-transition-speed linear;
+  visibility: hidden;
+  opacity: 0;
+  box-shadow: $shadow-0;
+  .o-submenu-arrow{
+    position: absolute;
+    bottom: 100%;
+    right: 15px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid $navbarGrey;
+  }
+  &.o-submenu-visible{
+    transition: visibility 0 linear;
+    box-shadow: $shadow-3;
+    opacity: 1;
+    visibility: visible;
+  }
+}

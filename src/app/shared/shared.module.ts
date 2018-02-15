@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'app/shared/services';
 import { PublicService } from 'app/shared/services';
 import { AuthGuard } from 'app/shared/guards';
+import { FormsModule } from '@angular/forms';
 
 const APP_PROVIDERS = [
   AuthGuard,
@@ -21,7 +22,9 @@ console.log('`Shared` bundle loaded asynchronously');
   imports: [
 
   ],
-  exports: [],
+  exports: [
+    FormsModule
+  ],
   providers: [
 
   ]

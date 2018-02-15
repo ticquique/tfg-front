@@ -60,6 +60,10 @@ declare module 'modern-lru' {
 declare var ENV: string;
 declare var HMR: boolean;
 declare var API_URL: string;
+declare var SOCKET: {
+  baseUrl: string
+  opts: Object
+};
 declare var System: SystemJS;
 
 interface SystemJS {
@@ -70,6 +74,10 @@ interface GlobalEnvironment {
   ENV: string;
   HMR: boolean;
   API_URL: String;
+  SOCKET: {
+    baseUrl: string
+    opts: Object
+  };
   SystemJS: SystemJS;
   System: SystemJS;
 }

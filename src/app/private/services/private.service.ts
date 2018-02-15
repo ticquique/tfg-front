@@ -8,7 +8,7 @@ import { HttpErrorResponse } from '@angular/common/http/src/response';
 @Injectable()
 export class PrivateService {
 
-  public headersHttp = new HttpHeaders({
+  private headersHttp = new HttpHeaders({
     'Content-Type': 'application/json',
   });
 

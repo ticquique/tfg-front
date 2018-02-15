@@ -1,0 +1,41 @@
+<div class="o-navbar-nav"  (click)="submenuToogle()">
+  <div class="container o-navbar-container">
+    <div class="o-logo-container">
+      <span class="logo">
+
+      </span>
+    </div>
+    <div class="o-menu">
+      <div class="o-profile-container">
+        <span class="c-profileImage">
+          <i class="navbar-icon material-icons">person</i>
+        </span>
+        <span class="c-profileName">Quique</span>
+      </div>
+      <div class="c-notifications" (click)="$event.stopPropagation(); submenuToogle('notification')">
+        <i class="navbar-icon material-icons">notifications</i>
+        <small class="navbar-subicon">1</small>
+      </div>
+      <div class="c-messages" (click)="$event.stopPropagation(); submenuToogle('message')">
+        <i class="navbar-icon material-icons">mail</i>
+        <div [ngClass]="{'o-submenu-visible': submenus.message }" class="o-submenu o-languajes-list">
+          <span class="o-submenu-arrow"></span>
+          <li class="c-languaje-item">spanish</li>
+          <li class="c-languaje-item">english</li>
+        </div>
+        <small class="navbar-subicon">10</small>
+      </div>
+      <div class="c-languajes" (click)="$event.stopPropagation(); submenuToogle('languaje')">
+        <i class="navbar-icon material-icons">language</i>
+        <div [ngClass]="{'o-submenu-visible': submenus.languaje }" class="o-submenu o-languajes-list">
+          <span class="o-submenu-arrow"></span>
+          <li class="c-languaje-item">spanish</li>
+          <li class="c-languaje-item">english</li>
+        </div>
+      </div>
+      <div class="c-settings" (click)="$event.stopPropagation(); submenuToogle('setting')">
+        <i class="navbar-icon material-icons">settings</i>
+      </div>
+    </div>
+  </div>
+</div>

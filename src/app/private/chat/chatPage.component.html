@@ -1,0 +1,24 @@
+<div class="msg-list " *ngIf="chat.activeChat" #list>
+
+  <div class="columns is-mobile" *ngFor="let m of chat.activeChat.msgList">
+
+    <div class="chat-bubble column is-10">
+      <p>
+        <b>{{m.usr}}</b>: {{m.msg}} </p>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="columns chat-bar">
+  <div class="column is-10">
+    <input (keyup.enter)="send()" class="input" [(ngModel)]='currentMsg'>
+  </div>
+  <div class="column is-2" *ngFor="let user of users">
+    <button class="button is-success" (click)="refreshForm(user.id)"> {{user.username}} </button>
+  </div>
+  <div class="column is-2">
+    <button class="button is-success" (click)="send()"> SEND </button>
+  </div>
+</div>

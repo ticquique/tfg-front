@@ -180,7 +180,8 @@ module.exports = function (options) {
         'process.env.ENV': JSON.stringify(METADATA.ENV),
         'process.env.NODE_ENV': JSON.stringify(METADATA.ENV),
         'process.env.HMR': METADATA.HMR,
-        'API_URL': JSON.stringify(METADATA.API_URL)
+        'API_URL': JSON.stringify(METADATA.API_URL),
+        'SOCKET': JSON.stringify(METADATA.SOCKET)
       }),
 
       /**

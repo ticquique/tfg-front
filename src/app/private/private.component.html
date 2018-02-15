@@ -1,0 +1,7 @@
+<div class="navbar-container" *ngIf="isValidToken">
+    <navbar-priv #navbarRef></navbar-priv>
+</div>
+<div class="content" (click)="this.navbar.submenuToogle()">
+  <router-outlet *ngIf="isValidToken"></router-outlet>
+</div>
+

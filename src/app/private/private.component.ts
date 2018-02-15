@@ -1,8 +1,11 @@
 import {
   Component,
   OnInit,
+  ViewChild,
+  HostListener
 } from '@angular/core';
-import { PrivateService } from 'app/private/private.service';
+import { PrivateService } from 'app/private/services';
+import { ChatService2 } from './services';
 /**
  * We're loading this component asynchronously
  * We are using some magic with es6-promise-loader that will wrap the module with a Promise
@@ -13,24 +16,18 @@ console.log('`Private` component loaded asynchronously');
 
 @Component({
   selector: 'private',
-  template: `
-    <div *ngIf="isValidToken">
-      <nav>
-        <li>Logo</li>
-        <li>Register</li>
-        <li>Login</li>
-      </nav>
-
-      <h1>Hello from Private</h1>
-      <span>{{isValidToken}}</span>
-    </div>
-  `,
+  styleUrls: ['./private.component.scss'],
+  templateUrl: './private.component.html'
 })
 export class PrivateComponent implements OnInit {
 
-  public isValidToken = false;
+  @ViewChild('navbarRef') public navbar;
+  private isValidToken = false;
 
-  constructor(public privateService: PrivateService) { }
+  constructor(
+    private privateService: PrivateService,
+    private chatService: ChatService2
+  ) { }
 
   public ngOnInit() {
 

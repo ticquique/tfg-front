@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -67,7 +66,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     BrowserModule,
     BrowserAnimationsModule,
-    FormsModule,
     HttpClientModule,
     SharedModule.forRoot(),
     CoreModule.forRoot(),

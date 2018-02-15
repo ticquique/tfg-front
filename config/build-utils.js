@@ -7,6 +7,10 @@ const DEFAULT_METADATA = {
   title: 'Inarts',
   baseUrl: '/',
   API_URL: 'https://localhost',
+  SOCKET: {
+    baseUrl: 'https://localhost',
+    opts: {}
+  },
   isDevServer: helpers.isWebpackDevServer(),
   HMR: helpers.hasProcessFlag('hot'),
   AOT: process.env.BUILD_AOT || helpers.hasNpmFlag('aot'),
