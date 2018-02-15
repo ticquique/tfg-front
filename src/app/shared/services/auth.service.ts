@@ -116,7 +116,6 @@ export class AuthService {
     this.loadToken();
     if (this.authToken) {
       const token = this.jwtHelper.decodeToken(this.authToken);
-      console.log(Math.floor(Date.now() / 1000) + '<br>' + token.exp);
       return Math.floor(Date.now() / 1000) < token.exp;
     } else {
       return false;

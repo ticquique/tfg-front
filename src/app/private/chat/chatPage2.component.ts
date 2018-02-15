@@ -13,17 +13,17 @@ import { IConversation, IUser, IMessage, ListConversations } from 'app/private/i
 })
 export class ChatPage2Component implements OnInit, AfterViewChecked {
 
-  @ViewChild('list') public list: ElementRef;
+  @ViewChild('list') private list: ElementRef;
 
-  public user: IUser;
-  public unreaded: number;
+  private user: IUser;
+  private unreaded: number;
 
-  public chatList: IConversation[];
-  public recordedChats = {};
+  private chatList: IConversation[];
+  private recordedChats = {};
 
-  public currentChat: IConversation;
+  private currentChat: IConversation;
 
-  public currentMessage: IMessage = {};
+  private currentMessage: IMessage = {};
 
   constructor(
     private commonData: CommonService,

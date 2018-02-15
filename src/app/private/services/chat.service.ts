@@ -56,7 +56,7 @@ export class ChatService {
   public socketConnected$ = new BehaviorSubject<boolean>(false);
   public activeChats = [];
 
-  public headersHttp = new HttpHeaders({
+  private headersHttp = new HttpHeaders({
     'Content-Type': 'application/json',
   });
 
