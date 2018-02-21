@@ -29,6 +29,7 @@ form {
           transform: translateY(-50%);
           color: #b3b3b3;
           cursor: pointer;
+          transition: opacity .4s cubic-bezier(0.47, 0, 0.745, 0.715);
         }
         textarea {
             resize: none;

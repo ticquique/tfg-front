@@ -1,24 +1,64 @@
-<div class="msg-list " *ngIf="chat.activeChat" #list>
+<div class="chat-container">
+  <div class="o-left-container">
+    <div class="o-search-container">
+      <form #sendForm="ngForm">
+        <div class="form-group">
+          <input (keyup) = "searcher($event)" autocomplete="off" type="text" [(ngModel)]="search" name='search' required/>
+          <span class="suffix">
+            <i class="material-icons">search</i>
+          </span>
+        </div>
+      </form>
+      <div class="o-search-results">
 
-  <div class="columns is-mobile" *ngFor="let m of chat.activeChat.msgList">
-
-    <div class="chat-bubble column is-10">
-      <p>
-        <b>{{m.usr}}</b>: {{m.msg}} </p>
+      </div>
+    </div>
+    <div *ngIf="chatList" class="o-users-container">
+      <!-- <h6 *ngIf="unreaded"> {{unreaded}} </h6> -->
+      <ng-container *ngIf="!this.listUsersSearch">
+        <ng-container *ngFor="let chat of chatList">
+          <div class="c-user-container" (click)="getConversation(chat.conversationID)" [class.current]="currentMessage.conversationID === chat.conversationID">
+            <div class="c-user-profile">
+              <i class="material-icons">person</i>
+              <span class="c-user-name">{{chat.participants[0].username}}</span>
+            </div>
+            <div *ngIf="chat.message" class="c-user-lastMessage">
+              <small>{{chat.message.body}}</small>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="this.listUsersSearch">
+        <ng-container *ngFor="let user of this.listUsersSearch">
+          <div class="c-user-container" (click)= "this.newChat(user._id, user.username)">
+            <div class="c-user-profile">
+              <i class="material-icons">person</i>
+              <span class="c-user-name">{{user.username}}</span>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
     </div>
   </div>
-
-</div>
-
-
-<div class="columns chat-bar">
-  <div class="column is-10">
-    <input (keyup.enter)="send()" class="input" [(ngModel)]='currentMsg'>
-  </div>
-  <div class="column is-2" *ngFor="let user of users">
-    <button class="button is-success" (click)="refreshForm(user.id)"> {{user.username}} </button>
-  </div>
-  <div class="column is-2">
-    <button class="button is-success" (click)="send()"> SEND </button>
+  <div class="o-messages-container">
+    <div class="o-messages" #list>
+      <ng-container *ngIf="currentChat">
+        <ng-container *ngFor="let message of currentChat.messages.reverse() let i = index">
+          <div class="c-message" [class.myself]="message.author.username === user.username" [class.other]="!(message.author.username === user.username)">
+            <p class="c-message-body">{{message.body}}</p>
+            <small class="c-message-author">{{message.author.username}}</small>
+            <small class="c-message-forview" *ngIf="!message.toOpen && i === 0">viewed</small>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+    <form class="o-input-container" (submit)="sendMessage()" #sendForm="ngForm">
+      <div class="form-group">
+        <input autocomplete="off" type="text" [(ngModel)]="currentMessage.body" name='body' required/>
+        <span class="suffix" (click)="sendMessage()">
+          <i class="material-icons">send</i>
+        </span>
+      </div>
+    </form>
   </div>
 </div>

@@ -3,13 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelper } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import { User } from 'app/interfaces';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { IUser } from '../interfaces';
 
 @Injectable()
 export class CommonService {
 
-  private user: BehaviorSubject<User>;
+  private user: BehaviorSubject<IUser>;
 
   constructor() {
     this.loadAll();
@@ -20,7 +20,7 @@ export class CommonService {
     const token = localStorage.getItem('id_token') || sessionStorage.getItem('id_token');
     if (token) {
       const decodedToken = jwtHelper.decodeToken(token);
-      const newUser: User = {username: decodedToken.username, id: decodedToken.id};
+      const newUser: IUser = {username: decodedToken.username, _id: decodedToken.id};
       this.user = new BehaviorSubject(newUser);
     }
   }
@@ -29,7 +29,7 @@ export class CommonService {
     return this.user.asObservable();
   }
 
-  public changeUser(user: User) {
+  public changeUser(user: IUser) {
     this.user.next(user);
   }
 

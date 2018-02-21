@@ -3,7 +3,6 @@ import {
   OnInit,
   AfterViewInit
 } from '@angular/core';
-import { ChatService } from 'app/private/services';
 
 @Component({
   /**
@@ -31,10 +30,6 @@ export class ChatComponent implements OnInit, AfterViewInit {
   /**
    * TypeScript public modifiers
    */
-
-   constructor(
-    private chat: ChatService
-   ) {}
 
   public ngOnInit() {
 

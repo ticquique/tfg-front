@@ -1,4 +1,116 @@
-.msg-list {
-  max-height: 200px;
+@import '../../../styles/_variables.scss';
+
+.chat-container {
+  display: flex;
+  height: calc(100vh - 64px);
+}
+
+
+.o-left-container{
+  width: 200px;
+  box-shadow: $shadow-2;
   overflow: auto;
+}
+
+.o-users-container {
+  margin-top: 30px;
+}
+
+.c-user-container {
+  margin: 5px 0;
+  padding: 5px 20px;
+  cursor: pointer;
+  transition: box-shadow .3s cubic-bezier(0.47, 0, 0.745, 0.715);
+  &.current {
+    box-shadow: inset -2px 0 0 0  $pupleDark;
+    background-color: darken(whitesmoke, 2);
+  }
+}
+
+.c-user-profile {
+  display: flex;
+  .material-icons {
+    color: lighten($pupleDark, 20);
+  }
+  .c-user-name {
+    display: block;
+    padding-top: 4.5px;
+  }
+}
+
+.c-user-lastMessage{
+  padding-top: 5px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.o-search-container {
+  .form-group {
+    background-color: white;
+    border-radius: 5px;
+    margin: 20px auto 0 auto;
+    max-width: 90%;
+    padding: 5px 10px;
+  }
+  input:focus {
+    & + .suffix {
+      opacity: 0;
+    }
+  }
+}
+
+.o-messages-container {
+  flex-grow: 1;
+  display: flex;
+  flex-flow: column;
+  max-height: 100%;
+}
+
+.o-messages {
+  flex-grow: 1;
+  overflow: auto;
+  background-color: rgba(222,220,220,1);
+  padding: 10px 20px;
+}
+
+.c-message {
+  max-width: 85%;
+  padding: 10px 15px;
+  border-radius: 24px;
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
+}
+.c-message.myself{
+  background-color: rgba(255,255,255,0.38);
+}
+.c-message.other{
+  background-color: rgba(210,172,245,0.38);
+  margin-left: auto;
+  margin-right: 0;
+}
+.c-message-body {
+  margin: 0;
+  padding: 0;
+}
+
+.o-input-container {
+  position: relative;
+  flex-grow: auto;
+  padding: 15px 10px;
+  background-color: rgba(205,205,205,1);
+
+  .form-group {
+    margin: auto;
+    width: 90%;
+    min-width: 300px;
+    border-radius: 40px;
+    padding: 10px 20px;
+    box-shadow: $shadow-2;
+    background-color: #fff;
+    .suffix {
+      color: $pupleDark;
+    }
+  }
 }

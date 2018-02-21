@@ -1,3 +1,5 @@
+import { ILike, IPost } from '.';
+
 export interface IUser {
   email?: string;
   password?: string;
@@ -9,12 +11,19 @@ export interface IUser {
     firstReg?: number
   };
   numComments?: number;
-  dislikes?: string[];
-  likes?: string[];
-  posts?: string[];
+  dislikes?: ILike[];
+  likes?: ILike[];
+  posts?: IPost[];
   privileges?: string;
   langKey?: string;
   id?: string;
   _id?: string;
-
+  profile?: {
+    city?: string,
+    country?: string,
+    age?: number,
+    sex?: string,
+    phone?: string,
+    hobbies?: [string] | string[]
+  };
 }

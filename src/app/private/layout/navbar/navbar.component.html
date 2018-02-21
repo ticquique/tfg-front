@@ -17,12 +17,14 @@
         <small class="navbar-subicon">1</small>
       </div>
       <div class="c-messages" (click)="$event.stopPropagation(); submenuToogle('message')">
-        <i class="navbar-icon material-icons">mail</i>
-        <div [ngClass]="{'o-submenu-visible': submenus.message }" class="o-submenu o-languajes-list">
+        <a routerLink="/chat2" routerLinkActive="active">
+          <i class="navbar-icon material-icons">mail</i>
+        </a>
+        <!-- <div [ngClass]="{'o-submenu-visible': submenus.message }" class="o-submenu o-languajes-list">
           <span class="o-submenu-arrow"></span>
           <li class="c-languaje-item">spanish</li>
           <li class="c-languaje-item">english</li>
-        </div>
+        </div> -->
         <small class="navbar-subicon">10</small>
       </div>
       <div class="c-languajes" (click)="$event.stopPropagation(); submenuToogle('languaje')">

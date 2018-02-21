@@ -5,7 +5,7 @@ import {
   HostListener
 } from '@angular/core';
 import { PrivateService } from 'app/private/services';
-import { ChatService2 } from './services';
+import { ChatService } from './services';
 /**
  * We're loading this component asynchronously
  * We are using some magic with es6-promise-loader that will wrap the module with a Promise
@@ -26,7 +26,7 @@ export class PrivateComponent implements OnInit {
 
   constructor(
     private privateService: PrivateService,
-    private chatService: ChatService2
+    private chatService: ChatService
   ) { }
 
   public ngOnInit() {
