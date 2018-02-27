@@ -20,7 +20,18 @@ export class CommonService {
     const token = localStorage.getItem('id_token') || sessionStorage.getItem('id_token');
     if (token) {
       const decodedToken = jwtHelper.decodeToken(token);
-      const newUser: IUser = {username: decodedToken.username, _id: decodedToken.id};
+      if (decodedToken.role === '5a155b671560ad3c74e137c6') {
+        decodedToken.role = 'artista';
+      } else {
+        decodedToken.role = 'editor';
+      }
+      const newUser: IUser = {
+        username: decodedToken.username,
+        _id: decodedToken.id,
+        privileges: decodedToken.privileges,
+        role: decodedToken.role,
+        privacy: decodedToken.privacy
+      };
       this.user = new BehaviorSubject(newUser);
     }
   }

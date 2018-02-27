@@ -1,42 +1,92 @@
-<div class="o-navbar-nav"  (click)="submenuToogle()">
-  <div class="container o-navbar-container">
-    <div class="o-logo-container">
-      <span class="logo">
-
-      </span>
+<div class="o-navbar-nav" (click)="submenuToogle();">
+  <div (focusout)="onUnfocus()" class="o-container o-search-small" *ngIf="this.currentWindowWidth <= 500 && this.displaySearch">
+    <span (click)="this.displaySearch = false">
+      <i class="material-icons navbar-icon">keyboard_backspace</i>
+    </span>
+    <input autocorrect="off" autocapitalize="off" spellcheck="false" (keyup)="searcher($event)" (focus)="this.focused = true"
+      autocomplete="off" type="text" [(ngModel)]="search" name='search' placeholder="Busca" required/>
+    <span>
+      <i class="material-icons navbar-icon">search</i>
+    </span>
+    <div class="o-search-results" *ngIf="this.listUsersSearch  && this.listUsersSearch.length > 0 && this.focused">
+      <ng-container *ngFor="let user of this.listUsersSearch">
+        <div class="c-user-container">
+          <div class="c-user-profile">
+            <i class="material-icons">person</i>
+            <span class="c-user-name">{{user.username}}</span>
+          </div>
+        </div>
+      </ng-container>
     </div>
+  </div>
+  <div class="container o-navbar-container" *ngIf="this.currentWindowWidth > 500 || (this.currentWindowWidth <= 500 && !this.displaySearch)">
+    <div class="o-left-container">
+      <a routerLink="/" routerLinkActive="active">
+        <span class="logo">
+
+        </span>
+      </a>
+    </div>
+
+    <div class="o-search-container" (focusout)="onUnfocus()" *ngIf="this.currentWindowWidth > 500">
+      <form>
+        <div class="form-group">
+          <input (keyup)="searcher($event)" (focus)="this.focused = true" [(ngModel)]="search" name='search' autocomplete="off" type="text"
+            placeholder="Busca" autocorrect="off" autocapitalize="off" spellcheck="false" required/>
+          <span class="suffix">
+            <i class="material-icons">search</i>
+          </span>
+        </div>
+      </form>
+      <div class="o-search-results" *ngIf="this.listUsersSearch  && this.listUsersSearch.length > 0 && this.focused">
+        <ng-container *ngFor="let user of this.listUsersSearch">
+          <a [routerLink]="['/profile/' + user.username]" routerLinkActive="router-link-active">
+            <div class="c-user-container">
+              <div class="c-user-profile">
+                <i class="material-icons">person</i>
+
+                <span class="c-user-name">{{user.username}}</span>
+              </div>
+            </div>
+          </a>
+        </ng-container>
+      </div>
+    </div>
+
     <div class="o-menu">
-      <div class="o-profile-container">
+      <div class="o-profile-container" [routerLink]="['/profile']" routerLinkActive="active">
         <span class="c-profileImage">
           <i class="navbar-icon material-icons">person</i>
         </span>
-        <span class="c-profileName">Quique</span>
+        <span class="c-profileName">{{this.user.username | titlecase }}</span>
+      </div>
+      <div class="o-search-icon" (click)="this.displaySearch = !this.displaySearch" *ngIf="this.currentWindowWidth <= 500">
+        <i class="navbar-icon material-icons">search</i>
+        <!-- <small class="navbar-subicon">1</small> -->
       </div>
       <div class="c-notifications" (click)="$event.stopPropagation(); submenuToogle('notification')">
         <i class="navbar-icon material-icons">notifications</i>
-        <small class="navbar-subicon">1</small>
+        <!-- <small class="navbar-subicon">1</small> -->
       </div>
       <div class="c-messages" (click)="$event.stopPropagation(); submenuToogle('message')">
-        <a routerLink="/chat2" routerLinkActive="active">
+        <a routerLink="/chat" routerLinkActive="active">
           <i class="navbar-icon material-icons">mail</i>
         </a>
-        <!-- <div [ngClass]="{'o-submenu-visible': submenus.message }" class="o-submenu o-languajes-list">
-          <span class="o-submenu-arrow"></span>
-          <li class="c-languaje-item">spanish</li>
-          <li class="c-languaje-item">english</li>
-        </div> -->
-        <small class="navbar-subicon">10</small>
+        <!-- <small class="navbar-subicon">10</small> -->
       </div>
       <div class="c-languajes" (click)="$event.stopPropagation(); submenuToogle('languaje')">
         <i class="navbar-icon material-icons">language</i>
         <div [ngClass]="{'o-submenu-visible': submenus.languaje }" class="o-submenu o-languajes-list">
           <span class="o-submenu-arrow"></span>
-          <li class="c-languaje-item">spanish</li>
-          <li class="c-languaje-item">english</li>
+          <div class="o-submenu-container">
+            <li *ngFor="let languaje of this.languajes" (click)="this.changeLang(languaje)" class="c-languaje-item"> {{languaje | translate}} </li>
+          </div>
         </div>
       </div>
       <div class="c-settings" (click)="$event.stopPropagation(); submenuToogle('setting')">
-        <i class="navbar-icon material-icons">settings</i>
+        <a routerLink="/settings" routerLinkActive="active">
+          <i class="navbar-icon material-icons">settings</i>
+        </a>
       </div>
     </div>
   </div>

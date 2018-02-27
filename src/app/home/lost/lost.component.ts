@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  HostListener,
   Output,
   EventEmitter
 } from '@angular/core';
@@ -61,7 +60,7 @@ export class LostComponent implements OnInit {
   public errorState: string = 'invisible';
   public successState: string = 'invisible';
   public errors: string = '';
-  private logModel = {
+  public logModel = {
     email: '',
     username: ''
   };

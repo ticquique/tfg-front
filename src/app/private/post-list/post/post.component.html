@@ -1,0 +1,21 @@
+<div class="post" *ngIf="_data.creator">
+  <div class="o-info-container">
+    <div class="o-profile-image">
+      <img [src]=_data.creator.profile.photo alt="">
+    </div>
+    <div class="o-info">
+      {{_data.creator.username}} {{_data.created_at | myTimeAgo}}
+    </div>
+  </div>
+  <div class="o-post-container">
+    <h1>{{_data.title}}</h1>
+    <p *ngIf="_data.message">{{_data.message}}</p>
+
+    <div class="likes-container">
+      {{_data.likes}} {{_data.dislikes}}
+    </div>
+  </div>
+  <div class="attachments-container" *ngIf="_data.attachments">
+      {{_data.attachments}}
+  </div>
+</div>

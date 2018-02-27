@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  HostListener,
   Output,
   EventEmitter
 } from '@angular/core';
@@ -52,7 +51,7 @@ export class LoginComponent implements OnInit {
   public errorState: string = 'invisible';
   public errors: string = '';
   public passwordHide: boolean = true;
-  private logModel = {
+  public logModel = {
     username: '',
     password: '',
     remember: false

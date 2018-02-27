@@ -1,7 +1,7 @@
 <div class="chat-container">
   <div class="o-left-container">
     <div class="o-search-container">
-      <form #sendForm="ngForm">
+      <form>
         <div class="form-group">
           <input (keyup) = "searcher($event)" autocomplete="off" type="text" [(ngModel)]="search" name='search' required/>
           <span class="suffix">
@@ -9,9 +9,6 @@
           </span>
         </div>
       </form>
-      <div class="o-search-results">
-
-      </div>
     </div>
     <div *ngIf="chatList" class="o-users-container">
       <!-- <h6 *ngIf="unreaded"> {{unreaded}} </h6> -->

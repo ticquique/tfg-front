@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  HostListener,
   Output,
   EventEmitter
 } from '@angular/core';
@@ -61,7 +60,7 @@ export class RegisterComponent implements OnInit {
   public successState: string = 'invisible';
   public errors: string = '';
   public roles: [string];
-  private logModel = {
+  public logModel = {
     email: '',
     username: '',
     role: ''

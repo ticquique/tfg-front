@@ -1,7 +1,9 @@
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import { HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CommonService } from '.';
 
@@ -9,7 +11,9 @@ import { IPost, IAttachment, IUser } from '../interfaces';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class ChatService {
+export class PostService {
+
+  public postList: IPost[] = [];
 
   private headersHttp = new HttpHeaders({ 'Content-Type': 'application/json' });
   private user: IUser;
@@ -29,10 +33,17 @@ export class ChatService {
       .catch(this.handleError);
   }
 
+  public getPosts(): Observable<IPost[]> {
+    return this.http.get(API_URL + '/api/post', { headers: this.headersHttp })
+      .map((data) => {
+        return data;
+      })
+      .catch(this.handleError);
+  }
+
   // PRIVATE
 
   private handleError(error: HttpErrorResponse) {
-    // console.error('server error:', error);
     if (error.error instanceof Error) {
       const errMessage = error.error.message;
       return Observable.throw(errMessage);
@@ -40,22 +51,26 @@ export class ChatService {
     return Observable.throw(error || 'Node.js server error');
   }
 
-  private initializer() {
+  private initializer(next?) {
     this.commonData.currentUser.subscribe((user) => {
-      this.initialData();
       this.user = user;
+      if (next) {
+        this.initialData(next);
+      } else {
+        this.initialData();
+      }
     });
   }
 
-  private initialData() {
-    // INITIALIZE LIST OF POSTS
-    // this.listConversations().subscribe((listConversations: ListConversations) => {
-    //   for (const conversation of listConversations.conversations) {
-    //     // tslint:disable-next-line:max-line-length
-    // tslint:disable-next-line:max-line-length
-    //     conversation.participants = conversation.participants.filter((element) => (element._id !== this.user._id));
-    //   }
-    // });
+  private initialData(next?: (postList: IPost[]) => any) {
+    //  INITIALIZE LIST OF POSTS
+    this.getPosts().subscribe((listPost: IPost[]) => {
+      this.postList = listPost;
+      console.log(this.postList);
+      if (next) {
+        next(this.postList);
+      }
+    });
   }
 
 }

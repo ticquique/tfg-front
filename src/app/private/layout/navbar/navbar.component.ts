@@ -1,7 +1,11 @@
 import {
   Component,
-  OnInit
+  OnInit,
+  HostListener
 } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { CommonService, SearchService } from 'app/private/services';
+import { IUser } from 'app/private/interfaces';
 
 @Component({
   /**
@@ -26,9 +30,19 @@ import {
   templateUrl: './navbar.component.html'
 })
 export class NavbarComponent implements OnInit {
+  public search: string;
+  public focused: boolean = false;
+  public listUsersSearch: [IUser] | IUser[];
+  public searchDelay: number = 1000;
+  public currentDelay: number = 1000;
   /**
    * TypeScript public modifiers
    */
+
+  public currentWindowWidth: number = 0;
+  public displaySearch: boolean = false;
+  public user: IUser;
+  public languajes: string[];
 
   private submenus = {
     notification: false,
@@ -37,9 +51,69 @@ export class NavbarComponent implements OnInit {
     setting: false
   };
 
-  public ngOnInit() {
+  constructor(
+    private commonData: CommonService,
+    private translateService: TranslateService,
+    private searchService: SearchService
+  ) { }
 
-    console.log('hello `Navbar` component');
+  public ngOnInit() {
+    this.currentWindowWidth = window.innerWidth;
+    this.languajes = this.translateService.getLangs();
+    this.commonData.currentUser.subscribe((data) => {
+      this.user = data;
+    });
+  }
+
+  @HostListener('window:resize')
+  public onResize() {
+    if (window.innerWidth > 500 && this.currentWindowWidth <= 500) {
+      this.displaySearch = false;
+    }
+    this.currentWindowWidth = window.innerWidth;
+  }
+
+  public resetSearcher() {
+    this.search = '';
+    this.listUsersSearch = null;
+  }
+
+  public onUnfocus() {
+    setTimeout(() => {
+      this.focused = false;
+    }, 100);
+  }
+
+  public searcher(event?) {
+    if (event && event.key === 'Backspace' && this.search.length === 0) {
+      this.listUsersSearch = null;
+    }
+    if (this.currentDelay === 0 && this.search.length > 0) {
+      this.searchService.getUserByPartial(this.search).subscribe((users: [IUser]) => {
+        this.listUsersSearch = users;
+      });
+      this.currentDelay = this.searchDelay;
+    } else if (this.currentDelay === this.searchDelay) {
+      this.currentDelay--;
+      setTimeout(() => {
+        this.currentDelay = 0;
+        this.searcher();
+      }, this.currentDelay);
+    }
+  }
+
+  public onFocus() {
+    this.focused = true;
+    if (this.currentWindowWidth > 500) {
+      this.displaySearch = true;
+    }
+  }
+
+  public onBlur() {
+    this.focused = false;
+    if (this.currentWindowWidth > 500) {
+      this.displaySearch = false;
+    }
   }
 
   public submenuToogle(type?) {
@@ -50,6 +124,10 @@ export class NavbarComponent implements OnInit {
         this.submenus[key] = false;
       }
     });
+  }
+
+  public changeLang(lang: string) {
+    this.translateService.use(lang);
   }
 
 }

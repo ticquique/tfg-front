@@ -1,9 +1,13 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
+import {
+  Component, OnInit, ViewChild, ElementRef, AfterViewChecked, OnDestroy
+} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { ChatService, SearchService, CommonService } from 'app/private/services';
 // tslint:disable-next-line:max-line-length
 import { IConversation, IUser, IMessage, ListConversations, RecordedChat } from 'app/private/interfaces';
+import { Subscription } from 'rxjs/Subscription';
+import * as _ from 'lodash';
 
 @Component({
 
@@ -11,7 +15,7 @@ import { IConversation, IUser, IMessage, ListConversations, RecordedChat } from 
   styleUrls: ['./chatPage.component.scss'],
   templateUrl: './chatPage.component.html'
 })
-export class ChatPageComponent implements OnInit, AfterViewChecked {
+export class ChatPageComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   public chatList: IConversation[];
   public currentChat: IConversation;
@@ -28,6 +32,8 @@ export class ChatPageComponent implements OnInit, AfterViewChecked {
 
   public recordedChats = {};
   public currentMessage: IMessage = {};
+  private sentSubscribe: Subscription;
+  private receivedSubscribe: Subscription;
 
   constructor(
     private commonData: CommonService,
@@ -56,6 +62,11 @@ export class ChatPageComponent implements OnInit, AfterViewChecked {
     });
   }
 
+  public ngOnDestroy() {
+    this.sentSubscribe.unsubscribe();
+    this.receivedSubscribe.unsubscribe();
+  }
+
   public sendMessage() {
     this.currentMessage.createdAt = new Date();
     this.currentMessage.author = {
@@ -68,6 +79,7 @@ export class ChatPageComponent implements OnInit, AfterViewChecked {
         this.currentMessage.toOpen.push(notme._id);
       }
     }
+
     this.chatService.send(this.currentMessage);
   }
 
@@ -112,8 +124,8 @@ export class ChatPageComponent implements OnInit, AfterViewChecked {
   private getUniqueChatList(who: string, next?): void {
     this.chatService.listUniqueConversation(who).subscribe((conversation: ListConversations) => {
       if (conversation.conversations.length > 0) {
-        this.filterUserArray(conversation.conversations[0].participants, '_id');
-        this.addToChatList(conversation.conversations[0]);
+        this.chatService.filterUserArray(conversation.conversations[0].participants, '_id');
+        this.chatService.addToChatList(conversation.conversations[0]);
         if (next) {
           next(null, conversation.conversations[0]);
         }
@@ -132,6 +144,7 @@ export class ChatPageComponent implements OnInit, AfterViewChecked {
     if (this.currentChat && this.currentChat.participants) {
       for (const participant of this.currentChat.participants) {
         if (participant._id === who) {
+          this.resetSearcher();
           result = true;
         }
       }
@@ -142,7 +155,7 @@ export class ChatPageComponent implements OnInit, AfterViewChecked {
         const element = this.chatList[i];
         for (const participant of element.participants) {
           if (participant._id === who) {
-            this.toTopChatList(i);
+            this.chatService.toTopChatList(i);
             this.getConversation(element.conversationID);
             this.resetSearcher();
             result = true;
@@ -154,8 +167,8 @@ export class ChatPageComponent implements OnInit, AfterViewChecked {
           if (err) {
             this.chatService.createConversation(who, whoName).subscribe(
               (data) => {
-                data.participants = this.filterUserArray(data.participants, '_id');
-                this.addToChatList(data);
+                data.participants = this.chatService.filterUserArray(data.participants, '_id');
+                this.chatService.addToChatList(data);
                 this.getConversation(data.conversationID);
                 this.resetSearcher();
               }
@@ -189,57 +202,42 @@ export class ChatPageComponent implements OnInit, AfterViewChecked {
 
   // LISTEN OUTGOING MESSAGES
   private sentMessage() {
-    this.chatService.sended.subscribe((message: IMessage) => {
-      this.updateChats(message);
-      this.currentMessage.body = '';
-    });
+    if (!this.sentSubscribe) {
+      this.sentSubscribe = this.chatService.sended.subscribe((message: IMessage) => {
+        this.updateChats(message);
+        this.currentMessage.body = '';
+      });
+    }
   }
 
   // LISTEN INCOMING MESSAGES
   private receivedMessage() {
-    this.chatService.received.subscribe((message: IMessage) => {
-      this.updateChats(message);
-    });
+    if (!this.receivedSubscribe) {
+      this.receivedSubscribe = this.chatService.received.subscribe((message: IMessage) => {
+        this.updateChats(message);
+      });
+    }
   }
 
   // UPDATE CHATS ON NEW MESSASGES, SENT OR RECEIVED
   private updateChats(message: IMessage) {
-    let newMessage: IMessage = {};
-
-    newMessage = {
-      author: {
-        username: message.author.username,
-        _id: message.author._id
-      },
-      conversationID: message.conversationID,
-      body: message.body,
-      toOpen: message.toOpen
-    };
+    const newMessage: IMessage = _.clone(message);
 
     if (this.currentChat) {
       if (message.conversationID === this.currentChat.conversationID) {
-
         this.currentChat.messages.unshift(newMessage);
-      } else {
-        if (this.recordedChats[message.conversationID]) {
-          const recordedAux = this.recordedChats;
-          recordedAux[message.conversationID].messages.unshift(message);
-          this.chatService.modifyRecordedChat(recordedAux);
-        }
-      }
-      for (let i = 0, n = this.chatList.length; i < n; i++) {
-        if (this.chatList[i].conversationID === newMessage.conversationID) {
-          this.chatList[i].message = newMessage;
-          this.toTopChatList(i);
-        }
-        if (i === n) {
-          this.getUniqueChatList(newMessage.author._id);
-        }
       }
     } else {
-      this.getConversation(message.conversationID, (data) => {
-        this.addToChatList(data);
-      });
+      setTimeout(() => {
+        if (this.chatList && this.chatList.length > 0) {
+          this.currentChat = this.chatList[0];
+        } else {
+          this.getConversation(message.conversationID, (data) => {
+            this.chatService.addToChatList(data);
+          });
+        }
+      }, 400);
+
     }
   }
 
@@ -252,42 +250,9 @@ export class ChatPageComponent implements OnInit, AfterViewChecked {
       this.chatService.listConversation(id).subscribe((data) => {
         if (next) { next(data); }
         this.currentChat = data;
-        this.updateRecorded(data);
+        this.chatService.updateRecorded(data);
       });
     }
-  }
-
-  private toTopChatList(index: number) {
-    const chatListAux = this.chatList;
-    chatListAux.unshift(this.chatList[index]);
-    chatListAux.splice(index + 1, 1);
-    this.chatService.modifyChatList(chatListAux);
-  }
-
-  private addToChatList(conversation: IConversation) {
-    const chatListAux = this.chatList;
-    chatListAux.unshift(conversation);
-    this.updateRecorded(conversation);
-    this.chatService.modifyChatList(chatListAux);
-  }
-
-  private updateRecorded(conversation: IConversation) {
-    const recordedChats = this.recordedChats;
-    recordedChats[conversation.conversationID] = conversation;
-    this.chatService.modifyRecordedChat(recordedChats);
-  }
-
-  private filterUserArray(array: any[], field?: string): any[] {
-    if (field) {
-      array = array.filter((el) => {
-        return el[field] !== this.user._id;
-      });
-    } else {
-      array = array.filter((el) => {
-        return el !== this.user._id;
-      });
-    }
-    return array;
   }
 
   private waitForExec(time: number, recount: number = 0, next?: (err?: string) => any) {

@@ -67,15 +67,15 @@ export class PasswordChangeComponent implements OnInit {
   /**
    * TypeScript public modifiers
    */
-  private token: string;
-  private tokenError: string = '';
+  public token: string;
+  public tokenError: string = '';
 
-  private state: string = 'invisible';
-  private errorState: string = 'invisible';
-  private successState: string = 'invisible';
-  private passwordHide: boolean = true;
-  private errors: string = '';
-  private logModel = {
+  public state: string = 'invisible';
+  public errorState: string = 'invisible';
+  public successState: string = 'invisible';
+  public passwordHide: boolean = true;
+  public errors: string = '';
+  public logModel = {
     password: ''
   };
 

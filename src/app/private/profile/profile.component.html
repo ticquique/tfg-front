@@ -1,0 +1,11 @@
+<ng-container *ngIf="this.allowVisible && this.profileUser">
+  aaa {{this.profileUser.username}}
+  <button (click)="this.swapFollow(this.profileUser._id)">unfollow</button>
+</ng-container>
+<ng-container *ngIf="!this.allowVisible && this.profileUser">
+  bbb {{this.profileUser.username}}
+  <button (click)="this.swapFollow(this.profileUser._id)">follow</button>
+</ng-container>
+<ng-template *ngIf="!this.profileUser">
+  loading
+</ng-template>

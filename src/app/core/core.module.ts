@@ -5,6 +5,7 @@ import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from 'app/core/interceptor';
 
 const APP_PROVIDERS = [
+  TranslateService,
   {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
@@ -24,7 +25,7 @@ console.log('`Core` bundle loaded asynchronously');
 
   ],
   exports: [
-    TranslateModule
+    TranslateModule,
   ],
   providers: [
 

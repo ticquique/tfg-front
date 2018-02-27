@@ -17,5 +17,5 @@ export interface ListConversations {
 }
 
 export interface RecordedChat {
-  [name: string]: IConversation[];
+  [name: string]: IConversation;
 }

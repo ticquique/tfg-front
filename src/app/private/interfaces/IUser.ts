@@ -18,7 +18,9 @@ export interface IUser {
   langKey?: string;
   id?: string;
   _id?: string;
+  privacy?: string;
   profile?: {
+    photo?: string,
     city?: string,
     country?: string,
     age?: number,

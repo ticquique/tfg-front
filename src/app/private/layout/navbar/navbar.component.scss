@@ -1,23 +1,36 @@
 @import '../../../../styles/variables';
 
 .container {
-  max-width: 1200px;
+  max-width: 1400px;
+}
+
+.o-search-results {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  z-index: 100;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, .8);
+  border: 3px solid #CBC4DA;
 }
 
 .o-navbar-nav {
   display: flex;
   justify-content: center;
-  background-color: rgb(215, 215, 215);
-  padding: 10px;
+  align-content: center;
+  align-items: center;
+  background-color: rgb(203, 196, 218);
 }
 
 .o-navbar-container{
   display: flex;
   width: 100%;
   justify-content: space-between;
+  padding: 10px;
+  position: relative;
 }
 
-.o-logo-container{
+.o-left-container{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,10 +44,76 @@
   width: rem(36px);
 }
 
+.o-search-container {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  position: relative;
+  @media only screen and (max-width: 500px) {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+  form{
+    flex: 1;
+  }
+  .form-group {
+    max-width: 450px;
+    margin: 0 20px;
+    border-radius: 5px;
+    font-size: rem(12px);
+    background-color: rgba(255, 255, 255, .4);
+    input{
+      padding: 0 10px 0 10px;
+      font-size: rem(14px);
+    }
+    input:focus {
+      box-shadow: $shadow-2;
+    }
+  }
+
+  .o-search-results{
+    margin: 10px 20px;
+    max-width: 450px;
+    min-width: 300px;
+  }
+
+
+}
+
+
+.o-search-small{
+  display: flex;
+  flex-basis: auto;
+  width: 90%;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  padding: 10px;
+  position: relative;
+  span{
+    cursor: pointer;
+  }
+  input {
+    padding: rem(10px);
+    background-color: rgba(255, 255, 255, .3);
+    border: 0;
+    transition: box-shadow $mf-transition-speed ease-in;
+    &::-webkit-input-placeholder{
+      color: rgba($pupleDark, .5);
+    }
+    &:focus{
+      @include shadow-2($pupleDark);
+      outline: none;
+    }
+  }
+}
+
+
 .o-menu {
   display: flex;
   justify-content: space-between;
-  max-width: 300px;
+  max-width: 280px;
   width: calc(100% - 82px);
   align-items: center;
 
@@ -42,7 +121,7 @@
 
 .navbar-icon {
   padding: 2px;
-  font-size: rem(32px);
+  font-size: rem(24px);
   color: $pupleDark;
   transition: color $mf-transition-speed ease-in;
 }
@@ -51,6 +130,7 @@
 .c-notifications,
 .c-messages,
 .c-languajes,
+.o-search-icon,
 .c-settings{
   position: relative;
   cursor: pointer;
@@ -73,13 +153,14 @@
 .o-profile-container,
 .c-notifications,
 .c-languajes,
+.o-search-icon,
 .c-messages{
   margin-right: 10px;
 }
 
 
 .o-profile-container {
-  background-color: white;
+  background-color: rgba(255, 255, 255, .25);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -87,7 +168,7 @@
   border-radius: 5px;
   transition: box-shadow $mf-transition-speed ease-in;
   &:hover{
-    box-shadow: $shadow-2;
+    background-color: rgba(255, 255, 255, .45);
   }
 }
 

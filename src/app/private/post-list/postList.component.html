@@ -1,1 +1,8 @@
-fddd
+<div class="post-container">
+  <div class="o-sidebar-container"></div>
+  <div class="o-main-container">
+    <ng-container *ngIf="this.postService.postList">
+        <post [data]="post" *ngFor="let post of this.postService.postList"></post>
+    </ng-container>
+  </div>
+</div>

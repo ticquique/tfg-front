@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { User } from 'app/interfaces';
+import { IUser } from '../interfaces';
 
 @Injectable()
 export class UserService {
@@ -20,7 +21,6 @@ export class UserService {
   }
 
   public listUsers(next) {
-
     // tslint:disable-next-line:max-line-length
     this.httpClient.get(API_URL + '/api/user', { headers: this.headersHttp }).subscribe(
       (data) => {
@@ -31,7 +31,54 @@ export class UserService {
         return next(err);
       }
     );
+  }
 
+  public getUserProfile(username: string, next?: (err?: any, data?: IUser) => any) {
+    // tslint:disable-next-line:max-line-length
+    this.httpClient.get(API_URL + '/api/user/username/' + username, { headers: this.headersHttp }).subscribe(
+      (data) => {
+        return next(null, data);
+      },
+      (err) => {
+        return next(err);
+      }
+    );
+  }
+
+  public followUser(userId: string, next?: (err?: any, data?: string) => any) {
+    // tslint:disable-next-line:max-line-length
+    this.httpClient.get(API_URL + '/api/user/follow/' + userId, { headers: this.headersHttp }).subscribe(
+      (data: string) => {
+        return next(null, data);
+      },
+      (err) => {
+        return next(err);
+      }
+    );
+  }
+
+  public getFollows(userId: string, next?: (err?: any, data?: string[]) => any) {
+    // tslint:disable-next-line:max-line-length
+    this.httpClient.get(API_URL + '/api/user/follows/' + userId, { headers: this.headersHttp }).subscribe(
+      (data: string[]) => {
+        return next(null, data);
+      },
+      (err) => {
+        return next(err);
+      }
+    );
+  }
+
+  public getFolloweds(userId: string, next?: (err?: any, data?: string[]) => any) {
+    // tslint:disable-next-line:max-line-length
+    this.httpClient.get(API_URL + '/api/user/followed/' + userId, { headers: this.headersHttp }).subscribe(
+      (data: string[]) => {
+        return next(null, data);
+      },
+      (err) => {
+        return next(err);
+      }
+    );
   }
 
 }

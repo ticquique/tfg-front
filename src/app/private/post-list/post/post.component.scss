@@ -1,0 +1,14 @@
+@import '../../../../styles/_variables.scss';
+
+.o-profile-image{
+  border-radius: 50%;
+  width: 54px;
+  height: 54px;
+  object-fit: cover;
+  overflow: hidden;
+  float: left;
+}
+
+.o-info-container {
+  @include clearfix;
+}

@@ -1,7 +1,7 @@
 /**
  * Angular 2 decorators and services
  */
-import { Component, ViewEncapsulation, HostListener } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 /**
  * App Component

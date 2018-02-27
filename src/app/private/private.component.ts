@@ -1,8 +1,7 @@
 import {
   Component,
   OnInit,
-  ViewChild,
-  HostListener
+  ViewChild
 } from '@angular/core';
 import { PrivateService } from 'app/private/services';
 import { ChatService } from './services';
@@ -22,7 +21,7 @@ console.log('`Private` component loaded asynchronously');
 export class PrivateComponent implements OnInit {
 
   @ViewChild('navbarRef') public navbar;
-  private isValidToken = false;
+  public isValidToken = false;
 
   constructor(
     private privateService: PrivateService,
